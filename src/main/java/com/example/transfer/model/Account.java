@@ -27,7 +27,7 @@ public class Account {
     @Column(name = "digit", nullable = false, length = 1)
     private Integer digit;
 
-    @Column(name = "balance", nullable = false, length = 1)
+    @Column(name = "balance", nullable = false)
     private BigDecimal balance;
 
 }

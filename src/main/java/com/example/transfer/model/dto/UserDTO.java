@@ -3,11 +3,13 @@ package com.example.transfer.model.dto;
 import com.example.transfer.model.Account;
 import com.example.transfer.model.User;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class UserDTO {
     private long id;
 
@@ -30,6 +32,4 @@ public class UserDTO {
         this.account = user.getAccount();
     }
 
-    public UserDTO() {
-    }
 }

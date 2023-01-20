@@ -30,21 +30,21 @@ public class UserController {
 
     @PostMapping()
     public ResponseEntity<UserDTO> saveUser(@RequestBody UserDTO user){
-        return new ResponseEntity<UserDTO>(userService.saveUser(user), HttpStatus.CREATED);
+        return new ResponseEntity<>(userService.saveUser(user), HttpStatus.CREATED);
     }
 
     @GetMapping
-    public List<UserDTO> getAllUsers(){
-        return userService.getAllUsers();
+    public ResponseEntity<List<UserDTO>> getAllUsers(){
+        return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
     }
 
     @GetMapping("{id}")
     public ResponseEntity<UserDTO> getUserById(@PathVariable("id") long UserId){
-        return new ResponseEntity<UserDTO>(userService.getUserById(UserId), HttpStatus.OK);
+        return new ResponseEntity<>(userService.getUserById(UserId), HttpStatus.OK);
     }
     @PutMapping("{id}")
     public ResponseEntity<UserDTO> updateUser(@PathVariable("id") long id, @RequestBody UserDTO User){
-        return new ResponseEntity<UserDTO>(userService.updateUser(User, id), HttpStatus.OK);
+        return new ResponseEntity<>(userService.updateUser(User, id), HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")
@@ -52,6 +52,6 @@ public class UserController {
 
         userService.deleteUser(id);
 
-        return new ResponseEntity<String>("User deleted successfully!.", HttpStatus.OK);
+        return new ResponseEntity<>("User deleted successfully!.", HttpStatus.OK);
     }
 }
