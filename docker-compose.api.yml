@@ -1,0 +1,20 @@
+version: '3'
+services:
+  api:
+    build:
+      context: ""
+      dockerfile: api.dockerfile
+    container_name: api-transfer
+    restart: on-failure
+    environment:
+      - DB_HOST=db
+      - JAVA_ENV=${ENV}
+    ports:
+      - ${API_PORT}:${API_PORT}
+    expose:
+      - ${API_PORT}
+    networks:
+      - transfer-dev
+
+networks:
+  transfer-dev:
