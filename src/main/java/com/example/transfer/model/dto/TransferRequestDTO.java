@@ -1,16 +1,13 @@
 package com.example.transfer.model.dto;
 
 import com.example.transfer.enums.TransferStatus;
-import com.example.transfer.model.Account;
-import com.example.transfer.model.Transaction;
-import com.example.transfer.model.TransferRequest;
+import com.example.transfer.model.TransactionRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 @Setter
@@ -18,11 +15,9 @@ import java.util.List;
 public class TransferRequestDTO {
     private Long id;
 
-    private List<Transaction> transactions;
+    private TransactionDTO toTransaction;
 
-    private Account fromAccount;
-
-    private Account toAccount;
+    private TransactionDTO fromTransaction;
 
     private BigDecimal amount;
 
@@ -32,11 +27,10 @@ public class TransferRequestDTO {
 
     private TransferStatus status;
 
-    public TransferRequestDTO(TransferRequest transferRequest) {
+    public TransferRequestDTO(TransactionRequest transferRequest) {
         this.id = transferRequest.getId();
-        this.transactions = transferRequest.getTransactions();
-        this.fromAccount = transferRequest.getFromAccount();
-        this.toAccount = transferRequest.getToAccount();
+        this.toTransaction = new TransactionDTO(transferRequest.getToTransaction());
+        this.fromTransaction = new TransactionDTO(transferRequest.getFromTransaction());
         this.amount = transferRequest.getAmount();
         this.initiatedAt = transferRequest.getInitiatedAt();
         this.completedAt = transferRequest.getCompletedAt();

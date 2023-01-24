@@ -7,24 +7,26 @@ import com.example.transfer.repository.TransactionRepository;
 import com.example.transfer.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class TransactionServiceImpl implements TransactionService {
     @Autowired
     private TransactionRepository transactionRepository;
 
     @Override
-    public List<TransactionDTO> extract(Integer accountNumber) {
-        return transactionRepository.findByAccountNumber(accountNumber)
+    public List<TransactionDTO> extract(Long userId) {
+        return transactionRepository.findByAccountIdAndUserId(userId)
                 .stream()
                 .map(this::converter)
                 .collect(Collectors.toList());
     }
 
-    private TransactionDTO converter (Transaction transaction) {
+    private TransactionDTO converter(Transaction transaction) {
         TransactionDTO result = new TransactionDTO();
         Transaction transactionDatabase = transactionRepository.getReferenceById(transaction.getId());
         result.setId(transactionDatabase.getId());
@@ -32,7 +34,6 @@ public class TransactionServiceImpl implements TransactionService {
         result.setDate(transactionDatabase.getDate());
         result.setMessage(transactionDatabase.getMessage());
         result.setAmount(transactionDatabase.getAmount());
-        result.setTransferRequest(transactionDatabase.getTransferRequest());
         return result;
     }
 }

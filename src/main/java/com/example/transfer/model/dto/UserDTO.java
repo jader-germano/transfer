@@ -1,6 +1,5 @@
 package com.example.transfer.model.dto;
 
-import com.example.transfer.model.Account;
 import com.example.transfer.model.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,7 +20,6 @@ public class UserDTO {
 
     private String email;
 
-    private Account account;
 
     public UserDTO(User user) {
         this.id = user.getId();
@@ -29,7 +27,6 @@ public class UserDTO {
         this.cpf = user.getCpf();
         this.password = user.getPassword();
         this.email = user.getEmail();
-        this.account = user.getAccount();
     }
 
 }
