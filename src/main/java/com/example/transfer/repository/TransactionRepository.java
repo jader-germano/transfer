@@ -11,7 +11,11 @@ import java.util.List;
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
 
-    @Query("SELECT t FROM Transaction t ORDER BY t.date DESC")
-    List<Transaction> findByAccountNumber(@Param("accountNumber") Integer accountNumber);
+    @Query("SELECT t FROM Transaction t " +
+            "LEFT JOIN Fetch t.account a " +
+            "LEFT JOIN Fetch a.user u " +
+            "Where u.id = :userId " +
+            "ORDER BY t.date DESC")
+    List<Transaction> findByAccountIdAndUserId(@Param("userId") Long userId);
 
 }

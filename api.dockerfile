@@ -1,4 +1,4 @@
-FROM openjdk:17-jre-slim
+FROM openjdk:17-alpine
 
 LABEL maintainer="transfervalue.com"
 

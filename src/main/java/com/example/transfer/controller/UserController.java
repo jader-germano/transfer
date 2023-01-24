@@ -23,10 +23,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    public UserController(UserService userService) {
-        super();
-        this.userService = userService;
-    }
 
     @PostMapping()
     public ResponseEntity<UserDTO> saveUser(@RequestBody UserDTO user){

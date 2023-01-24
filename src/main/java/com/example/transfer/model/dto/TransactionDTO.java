@@ -1,7 +1,7 @@
 package com.example.transfer.model.dto;
 
 import com.example.transfer.enums.TransactionStatus;
-import com.example.transfer.model.TransferRequest;
+import com.example.transfer.model.Transaction;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,8 +15,6 @@ import java.time.LocalDateTime;
 public class TransactionDTO {
     private Long id;
 
-    private TransferRequest transferRequest;
-
     private AccountDTO account;
 
     private BigDecimal amount;
@@ -26,4 +24,14 @@ public class TransactionDTO {
     private TransactionStatus type;
 
     private LocalDateTime date;
+
+
+    public TransactionDTO(Transaction transaction) {
+        this.id = transaction.getId();
+        this.account = new AccountDTO(transaction.getAccount());
+        this.amount = transaction.getAmount();
+        this.message = transaction.getMessage();
+        this.type = transaction.getType();
+        this.date = transaction.getDate();
+    }
 }

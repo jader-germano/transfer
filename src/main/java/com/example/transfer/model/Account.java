@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,7 +24,11 @@ public class Account implements Serializable {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "number", nullable = false)
+    @OneToOne()
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @Column(name = "number", unique = true, nullable = false)
     private Integer accountNumber;
 
     @Column(name = "digit", nullable = false, length = 1)

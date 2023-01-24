@@ -3,7 +3,7 @@ package com.example.transfer.service;
 import com.example.transfer.exception.AccountNotFoundException;
 import com.example.transfer.exception.InsufficientFundsException;
 import com.example.transfer.model.Account;
-import com.example.transfer.model.TransferRequest;
+import com.example.transfer.model.TransactionRequest;
 import com.example.transfer.repository.AccountRepository;
 import org.aspectj.lang.annotation.Before;
 import org.junit.Assert;
@@ -19,12 +19,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class TransferServiceTest {
+public class TransactionServiceTest {
 
     private final Account account = new Account();
     private final Account account2 = new Account();
     @Autowired
-    private TransferService transferService;
+    private TransactionRequestService transferService;
 
     @Autowired
     private AccountRepository accountRepository;
@@ -49,9 +49,9 @@ public class TransferServiceTest {
 
     @Test
     public void testTransfer() {
-        TransferRequest transferRequest = new TransferRequest();
-        transferRequest.setFromAccount(account);
-        transferRequest.setToAccount(account2);
+        TransactionRequest transferRequest = new TransactionRequest();
+        transferRequest.getFromTransaction().setAccount(account);
+        transferRequest.getToTransaction().setAccount(account2);
         transferRequest.setAmount(new BigDecimal("100.00"));
         transferService.transfer(transferRequest);
 
@@ -63,10 +63,10 @@ public class TransferServiceTest {
 
     @Test
     public void testTransfer_InsufficientFunds() {
-        TransferRequest transferRequest = new TransferRequest();
+        TransactionRequest transferRequest = new TransactionRequest();
         transferRequest.setId(1L);
-        transferRequest.setFromAccount(account);
-        transferRequest.setToAccount(account2);
+        transferRequest.getFromTransaction().setAccount(account);
+        transferRequest.getToTransaction().setAccount(account2);
         transferRequest.setAmount(new BigDecimal("10000.00"));
         transferService.transfer(transferRequest);
         assertThrows(InsufficientFundsException.class, () -> {
@@ -76,10 +76,10 @@ public class TransferServiceTest {
 
     @Test
     public void testTransfer_InvalidAccount() {
-        TransferRequest transferRequest = new TransferRequest();
+        TransactionRequest transferRequest = new TransactionRequest();
         transferRequest.setId(1L);
-        transferRequest.setFromAccount(account);
-        transferRequest.setToAccount(account2);
+        transferRequest.getFromTransaction().setAccount(account);
+        transferRequest.getToTransaction().setAccount(account2);
         transferRequest.setAmount(new BigDecimal("100.00"));
         transferService.transfer(transferRequest);
         assertThrows(AccountNotFoundException.class, () -> {
